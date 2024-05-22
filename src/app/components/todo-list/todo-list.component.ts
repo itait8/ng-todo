@@ -16,11 +16,11 @@ export class TodoListComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   public todos: Array<ITodo> = [];
 
-  constructor(private todoService: TodoService) {}
+  constructor(private _todoService: TodoService) {}
 
   ngOnInit(): void {
     this.subscription.add(
-      this.todoService.getTodos().subscribe((data) => {
+      this._todoService.getTodos().subscribe((data) => {
         this.todos = data;
       })
     );
@@ -28,5 +28,15 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  public onTodoClick(todo: ITodo, index: number): void {
+    this._todoService.setSelectedTodo(todo);
+    this.todos.forEach((todo) => {
+      if (todo.selected) {
+        todo.selected = false;
+      }
+    });
+    this.todos[index].selected = true;
   }
 }
