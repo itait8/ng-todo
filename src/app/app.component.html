@@ -1,21 +1,6 @@
 <div class="app">
   <app-header></app-header>
   <main>
-    <div class="list-container">
-      <app-todo-list></app-todo-list>
-    </div>
-    <div class="todo-container">
-      <app-todo></app-todo>
-    </div>
-
-    <button
-      mat-fab
-      color="primary"
-      aria-label="Example icon button with a home icon"
-      class="add-new-todo-btn"
-      (click)="openDialog()"
-    >
-      <mat-icon>add</mat-icon>
-    </button>
+    <app-todo-container></app-todo-container>
   </main>
 </div>
