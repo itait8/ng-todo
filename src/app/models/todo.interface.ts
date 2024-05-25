@@ -4,6 +4,6 @@ export interface ITodo {
   description: String;
   isCompleted: boolean;
   isArchived: boolean;
-  endDate: Date | number | String;
+  endDate: Date;
   selected: boolean;
 }

@@ -3,13 +3,14 @@ import { ITodo } from '../../models/todo.interface';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material/material.module';
 import { TodoService } from '../../services/todo.service';
+import { CountdownComponent } from '../countdown/countdown.component';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [CommonModule, MaterialModule],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.scss',
+  imports: [CommonModule, MaterialModule, CountdownComponent],
 })
 export class TodoComponent implements OnInit {
   @Input() set todo(todo: ITodo) {

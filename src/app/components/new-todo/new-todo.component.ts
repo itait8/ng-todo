@@ -20,6 +20,8 @@ export class NewTodoComponent {
 
   @ViewChild('f') form: NgForm;
 
+  public minDate: Date = new Date();
+
   public onNewTodoSubmit(): void {
     if (this.form.form.valid) {
       console.log('form is valid');
