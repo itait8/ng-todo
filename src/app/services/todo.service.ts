@@ -19,6 +19,18 @@ export class TodoService {
   constructor() {}
 
   public getTodos(): Observable<Array<ITodo>> {
+    if (!this._todoSubject.value.length) {
+      if (typeof window !== 'undefined') {
+        const todosString = localStorage.getItem('todos');
+
+        if (todosString) {
+          const existingTodos: Array<ITodo> = JSON.parse(todosString);
+          existingTodos[0].selected = true;
+          this._todoSubject.next(existingTodos);
+          this._singleTodoSubject.next(existingTodos[0]);
+        }
+      }
+    }
     return this._todoSubject.asObservable();
   }
 
@@ -44,5 +56,28 @@ export class TodoService {
     const existingTodos: Array<ITodo> = this._todoSubject.value;
     existingTodos.push(newTodo);
     this._todoSubject.next(existingTodos);
+    localStorage.setItem('todos', JSON.stringify(existingTodos));
+  }
+
+  public onTodoAction(todoId: String, actionCode: number): void {
+    const existingTodos: Array<ITodo> = this._todoSubject.value;
+    const todoIndex = existingTodos.findIndex(
+      (singleTodo) => singleTodo.id == todoId
+    );
+    switch (actionCode) {
+      case 1:
+        existingTodos[todoIndex].isCompleted =
+          !existingTodos[todoIndex].isCompleted;
+        break;
+      case 2:
+        existingTodos[todoIndex].isArchived =
+          !existingTodos[todoIndex].isArchived;
+        break;
+      default:
+        break;
+    }
+
+    this._todoSubject.next(existingTodos);
+    localStorage.setItem('todos', JSON.stringify(existingTodos));
   }
 }

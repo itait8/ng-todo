@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ITodo } from '../../models/todo.interface';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material/material.module';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-todo',
@@ -21,17 +22,17 @@ export class TodoComponent implements OnInit {
   }
   private _todo!: ITodo;
 
-  constructor() {}
+  constructor(private _todoService: TodoService) {}
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {}
 
   public onCompelteTodo(todo: ITodo): void {
-    todo.isCompleted = !todo.isCompleted;
+    this._todoService.onTodoAction(todo.id, 1);
   }
 
   public onArchiveTodo(): void {
-    this._todo.isArchived = true;
+    this._todoService.onTodoAction(this.todo.id, 2);
   }
 }

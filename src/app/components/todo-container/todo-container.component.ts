@@ -18,15 +18,7 @@ import { Subscription } from 'rxjs';
 export class TodoContainerComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
-  public todo: ITodo = {
-    id: 0,
-    Title: '',
-    description: '',
-    isArchived: false,
-    isCompleted: false,
-    endDate: new Date(),
-    selected: true,
-  };
+  public todo: ITodo;
   public todos!: ITodo[];
 
   constructor(public dialog: MatDialog, private _todoService: TodoService) {}
@@ -51,7 +43,8 @@ export class TodoContainerComponent implements OnInit, OnDestroy {
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(NewTodoComponent, {
-      width: '250px',
+      width: '260px',
+      height: '325px',
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
